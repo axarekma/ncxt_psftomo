@@ -9,3 +9,9 @@ Journal of structural biology, 204(1), 9-18.
 ```
 
 See [example](PSF_projectors.ipynb) for example
+
+Install adn test by running
+```
+pip install --upgrade ./
+python -m unittest -v
+'''
