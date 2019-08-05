@@ -49,7 +49,6 @@ typedef struct {
 inline sq_params sqpoints(double angle) {
   double cosphi = cos(angle);
   double sinphi = sin(angle);
-  const double pi_2 = 1.57079632679;
   double cms = fabs(0.5 * (cosphi - sinphi));
   double cps = fabs(0.5 * (cosphi + sinphi));
 
@@ -64,14 +63,14 @@ template <typename T>
 inline py::array_t<double> weighted_kernel(py::array_t<T> psf, int focus,
                                            double const wx0, double const wx1,
                                            double const wx2) {
-  auto data_psf = psf.unchecked<3>();
+  auto data_psf = psf.template unchecked<3>();
   int const psfz = static_cast<int>(data_psf.shape(0));
   int const psfx = static_cast<int>(data_psf.shape(1));
   int const psfy = static_cast<int>(data_psf.shape(2));
 
   // make weighted kernel
   py::array_t<double> kernel({psfx + 2, psfy});
-  auto data_kernel = kernel.mutable_unchecked<2>();
+  auto data_kernel = kernel.template mutable_unchecked<2>();
 
   for (int xi = 0; xi < data_kernel.shape(0); xi++) {
     for (int yi = 0; yi < data_kernel.shape(1); yi++) {
@@ -95,9 +94,9 @@ inline py::array_t<double> weighted_kernel(py::array_t<T> psf, int focus,
 template <typename T>
 inline void forward_bl(py::array_t<T> volume, py::array_t<T> projection,
                        py::array_t<T> angles) {
-  auto data_x = volume.unchecked<3>();
-  auto data_p = projection.mutable_unchecked<3>();
-  auto data_angles = angles.unchecked<1>();
+  auto data_x = volume.template unchecked<3>();
+  auto data_p = projection.template mutable_unchecked<3>();
+  auto data_angles = angles.template unchecked<1>();
 
   int const nx = static_cast<int>(data_x.shape(0));
   int const ny = static_cast<int>(data_x.shape(1));
@@ -168,9 +167,9 @@ inline void forward_bl(py::array_t<T> volume, py::array_t<T> projection,
 template <typename T>
 inline void backward_bl(py::array_t<T> volume, py::array_t<T> projection,
                         py::array_t<T> angles) {
-  auto data_x = volume.mutable_unchecked<3>();
-  auto data_p = projection.unchecked<3>();
-  auto data_angles = angles.unchecked<1>();
+  auto data_x = volume.template mutable_unchecked<3>();
+  auto data_p = projection.template unchecked<3>();
+  auto data_angles = angles.template unchecked<1>();
 
   int const nx = static_cast<int>(data_x.shape(0));
   int const ny = static_cast<int>(data_x.shape(1));
@@ -243,8 +242,8 @@ inline void backward_bl(py::array_t<T> volume, py::array_t<T> projection,
 template <typename T>
 inline void distribute_convolved_voxel(T val, py::array_t<T> projection,
                                        py::array_t<T> kernel, int xi, int yi, int ai) {
-  auto data_p = projection.mutable_unchecked<3>();
-  auto data_kernel = kernel.unchecked<2>();
+  auto data_p = projection.template mutable_unchecked<3>();
+  auto data_kernel = kernel.template unchecked<2>();
 
   int const px = static_cast<int>(data_p.shape(1));
   int const py = static_cast<int>(data_p.shape(2));
@@ -265,10 +264,10 @@ inline void distribute_convolved_voxel(T val, py::array_t<T> projection,
 template <typename T>
 inline void forward(py::array_t<T> volume, py::array_t<T> projection,
                     py::array_t<T> psf, py::array_t<T> angles) {
-  auto data_x = volume.unchecked<3>();
-  auto data_p = projection.mutable_unchecked<3>();
-  auto data_psf = psf.unchecked<3>();
-  auto data_angles = angles.unchecked<1>();
+  auto data_x = volume.template unchecked<3>();
+  auto data_p = projection.template mutable_unchecked<3>();
+  auto data_psf = psf.template unchecked<3>();
+  auto data_angles = angles.template unchecked<1>();
 
   int const nx = static_cast<int>(data_x.shape(0));
   int const ny = static_cast<int>(data_x.shape(1));
@@ -359,8 +358,8 @@ inline void forward(py::array_t<T> volume, py::array_t<T> projection,
 template <typename T>
 inline T psf_convolved_projection_pixel(py::array_t<T> projection, int xi, int yi,
                                         int zi, py::array_t<T> kernel) {
-  auto data_p = projection.mutable_unchecked<3>();
-  auto data_kernel = kernel.unchecked<2>();
+  auto data_p = projection.template mutable_unchecked<3>();
+  auto data_kernel = kernel.template unchecked<2>();
 
   int const p_w = static_cast<int>(data_p.shape(1));
   int const p_h = static_cast<int>(data_p.shape(2));
@@ -394,10 +393,10 @@ inline T psf_convolved_projection_pixel(py::array_t<T> projection, int xi, int y
 template <typename T>
 inline void backward(py::array_t<T> volume, py::array_t<T> projection,
                      py::array_t<T> psf, py::array_t<T> angles) {
-  auto data_x = volume.mutable_unchecked<3>();
-  auto data_p = projection.unchecked<3>();
-  auto data_psf = psf.unchecked<3>();
-  auto data_angles = angles.unchecked<1>();
+  auto data_x = volume.template mutable_unchecked<3>();
+  auto data_p = projection.template unchecked<3>();
+  auto data_psf = psf.template unchecked<3>();
+  auto data_angles = angles.template unchecked<1>();
 
   int const nx = static_cast<int>(data_x.shape(0));
   int const ny = static_cast<int>(data_x.shape(1));
