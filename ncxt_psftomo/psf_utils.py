@@ -1,6 +1,5 @@
 import numpy as np
 from scipy.special import jv
-from imageio import imread
 
 
 def Lommel(u, v, n):

@@ -70,26 +70,35 @@ def cpp_flag(compiler):
 
 class BuildExt(build_ext):
     """A custom build extension for adding compiler-specific options."""
+    c_opts = {
+        'msvc': ["/openmp", "/EHsc"],
+        'unix': ["-fopenmp"],
+    }
+    l_opts = {
+        'msvc': [],
+        'unix': ["-fopenmp"],
+    }
 
-    c_opts = {"msvc": ["/openmp", "/EHsc"], "unix": []}
-
-    if sys.platform == "darwin":
-        c_opts["unix"] += ["-stdlib=libc++", "-mmacosx-version-min=10.7"]
+    if sys.platform == 'darwin':
+        darwin_opts = ['-stdlib=libc++', '-mmacosx-version-min=10.7']
+        c_opts['unix'] += darwin_opts
+        l_opts['unix'] += darwin_opts
 
     def build_extensions(self):
         ct = self.compiler.compiler_type
         opts = self.c_opts.get(ct, [])
-        if ct == "unix":
+        link_opts = self.l_opts.get(ct, [])
+        if ct == 'unix':
             opts.append('-DVERSION_INFO="%s"' % self.distribution.get_version())
             opts.append(cpp_flag(self.compiler))
-            if has_flag(self.compiler, "-fvisibility=hidden"):
-                opts.append("-fvisibility=hidden")
-        elif ct == "msvc":
+            if has_flag(self.compiler, '-fvisibility=hidden'):
+                opts.append('-fvisibility=hidden')
+        elif ct == 'msvc':
             opts.append('/DVERSION_INFO=\\"%s\\"' % self.distribution.get_version())
         for ext in self.extensions:
             ext.extra_compile_args = opts
+            ext.extra_link_args = link_opts
         build_ext.build_extensions(self)
-
 
 setup(
     name="ncxt_psftomo",
@@ -101,7 +110,7 @@ setup(
     long_description="NA",
     packages=setuptools.find_packages(),
     ext_modules=ext_modules,
-    install_requires=["pybind11>=2.2", "numpy>=1.13.3", "matplotlib>=3.0.3"],
+    install_requires=["pybind11>=2.2", "numpy>=1.13.3", "matplotlib>=3.0.3", "scipy>=1.3.0"],
     cmdclass={"build_ext": BuildExt},
     zip_safe=False,
 )

@@ -2,7 +2,6 @@ import matplotlib.patches as patches
 import matplotlib.gridspec as gridspec
 import matplotlib.pyplot as plt
 import numpy as np
-from skimage import color
 
 
 def getslice(data, dim, slicenr=None):

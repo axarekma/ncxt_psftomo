@@ -64,7 +64,7 @@ inline py::array_t<double> weighted_kernel(py::array_t<T> psf, int focus,
                                            double const wx0, double const wx1,
                                            double const wx2) {
   auto data_psf = psf.template unchecked<3>();
-  int const psfz = static_cast<int>(data_psf.shape(0));
+//  int const psfz = static_cast<int>(data_psf.shape(0));
   int const psfx = static_cast<int>(data_psf.shape(1));
   int const psfy = static_cast<int>(data_psf.shape(2));
 
@@ -286,7 +286,7 @@ inline void forward(py::array_t<T> volume, py::array_t<T> projection,
     throw std::runtime_error("Projections stack size must match angles");
 
   int const psfz = static_cast<int>(data_psf.shape(0));
-  int const psfx = static_cast<int>(data_psf.shape(1));
+//  int const psfx = static_cast<int>(data_psf.shape(1));
   int const psfy = static_cast<int>(data_psf.shape(2));
 
   double const xcent = 0.5 * (nx - 1);
@@ -294,7 +294,7 @@ inline void forward(py::array_t<T> volume, py::array_t<T> projection,
   double const pcent = 0.5 * (px - 1);
   double const psf_focus = 0.5 * (psfz - 1);
   int const psf_ry = (psfy - 1) / 2;
-  int const psf_rx = (psfx - 1) / 2;
+//  int const psf_rx = (psfx - 1) / 2;
 
   // reset projections
   for (int xi = 0; xi < data_p.shape(0); xi++) {
@@ -412,15 +412,15 @@ inline void backward(py::array_t<T> volume, py::array_t<T> projection,
     throw std::runtime_error("Projections stack size must match angles");
 
   int const psfz = static_cast<int>(data_psf.shape(0));
-  int const psfx = static_cast<int>(data_psf.shape(1));
-  int const psfy = static_cast<int>(data_psf.shape(2));
+//  int const psfx = static_cast<int>(data_psf.shape(1));
+//  int const psfy = static_cast<int>(data_psf.shape(2));
 
   double const xcent = 0.5 * (nx - 1);
   double const ycent = 0.5 * (ny - 1);
   double const pcent = 0.5 * (px - 1);
   double const psf_focus = 0.5 * (psfz - 1);
-  int const psf_ry = (psfy - 1) / 2;
-  int const psf_rx = (psfx - 1) / 2;
+//  int const psf_ry = (psfy - 1) / 2;
+//  int const psf_rx = (psfx - 1) / 2;
 
   // reset volume
   for (int xi = 0; xi < data_x.shape(0); xi++) {
