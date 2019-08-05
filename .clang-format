@@ -1,0 +1,10 @@
+
+# We'll use defaults from the LLVM style, but with 4 columns indentation.
+BasedOnStyle: LLVM
+ColumnLimit: 88
+# IndentWidth: 4
+# BinPackParameters: false
+# AllowShortBlocksOnASingleLine: true
+# AllowShortFunctionsOnASingleLine: true
+# AllowShortIfStatementsOnASingleLine: true
+# AllowShortLoopsOnASingleLine: true
