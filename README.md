@@ -8,7 +8,12 @@ Ekman, A., Weinhardt, V., Chen, J. H., McDermott, G., Le Gros, M. A., & Larabell
 Journal of structural biology, 204(1), 9-18.
 ```
 
-See [example](PSF_projectors.ipynb) for example
+Here is an example of a phantom, it's ideal reconstruciton and the reconstruction form bandwidth-limited projections using BL and PSF operators. 
+
+![Alt text](examples/example_PSNR.png "Image Title")
+
+
+See [example](PSF_projectors.ipynb) for example usage.
 
 Install and test by running
 ```

@@ -11,7 +11,8 @@ def A_bl(vol,Ax,angles, reset= True):
     xcent = nx/2-0.5
     ycent = ny/2-0.5
     pcent = px/2-0.5
-    assert len(angles) == pa, "Projection images and angles don't match"
+    assert len(angles) == pa, (f"Projection images ({pa})"
+                          f"and angles {len(angles)} don't match")
     
     if reset:
         Ax*=0
@@ -54,7 +55,8 @@ def sA_bl(vol,Ax,angles, reset= True):
     xcent = nx/2-0.5
     ycent = ny/2-0.5
     pcent = px/2-0.5
-    assert len(angles) == pa, "Projection images and angles don't match"
+    assert len(angles) == pa, (f"Projection images ({pa})"
+                          f"and angles {len(angles)} don't match")
     
     if reset:
         Ax*=0
@@ -100,7 +102,8 @@ def AT_bl(Ax,vol,angles, reset= True):
     xcent = nx/2-0.5
     ycent = ny/2-0.5
     pcent = px/2-0.5
-    assert len(angles) == pa, "Projection images and angles don't match"
+    assert len(angles) == pa, (f"Projection images ({pa})"
+                          f"and angles {len(angles)} don't match")
     
     if reset:
         vol*=0
@@ -143,7 +146,8 @@ def sAT_bl(Ax,vol,angles, reset= True):
     xcent = nx/2-0.5
     ycent = ny/2-0.5
     pcent = px/2-0.5
-    assert len(angles) == pa, "Projection images and angles don't match"
+    assert len(angles) == pa, (f"Projection images ({pa})"
+                          f"and angles {len(angles)} don't match")
     
     if reset:
         vol*=0
