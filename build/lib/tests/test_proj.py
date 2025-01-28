@@ -5,7 +5,6 @@ import numpy as np
 
 
 class MainTest(unittest.TestCase):
-
     def test_adjointness_psf(self):
 
         L = 5
@@ -37,17 +36,16 @@ class MainTest(unittest.TestCase):
                                 y *= 0
                                 x *= 0
                                 y[proj_i, proj_j, proj_k] = 1
-                                module.backward(y,x,  psf, angles)
+                                module.backward(x, y, psf, angles)
                                 val_at = x[vol_i, vol_j, vol_k]
 
                                 if not np.isclose(val_a, val_at):
                                     errors += 1
-                                    print(f"pair ({vol_i},{vol_j}) ({proj_i},{proj_j}) height ({proj_k}) differs")
+                                    print(f"pair ({i},{j}) ({p},{a}) differs")
                                     print(f"   A:{val_a:.3}  AT:{val_at:.3}")
                 # print(f'errors {errors} of {L*L*Lp*na}')
         self.assertEqual(errors, 0)
 
-    # @unittest.skip("demonstrating skipping")
     def test_adjointness_bl(self):
 
         L = 5
@@ -77,12 +75,12 @@ class MainTest(unittest.TestCase):
                                 y *= 0
                                 x *= 0
                                 y[proj_i, proj_j, proj_k] = 1
-                                module.backward_bl(y,x, angles)
+                                module.backward_bl(x, y, angles)
                                 val_at = x[vol_i, vol_j, vol_k]
 
                                 if not np.isclose(val_a, val_at):
                                     errors += 1
-                                    print(f"pair ({vol_i},{vol_j}) ({proj_i},{proj_j}) height ({proj_k}) differs")
+                                    print(f"pair ({i},{j}) ({p},{a}) differs")
                                     print(f"   A:{val_a:.3}  AT:{val_at:.3}")
                 # print(f'errors {errors} of {L*L*Lp*na}')
         self.assertEqual(errors, 0)

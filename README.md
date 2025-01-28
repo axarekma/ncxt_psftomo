@@ -16,8 +16,3 @@ pip3 install --upgrade ./
 python -m unittest -v
 ```
 
-
-
-TODO:
-- [] strict install_requires
-- [] check openMP speedup
