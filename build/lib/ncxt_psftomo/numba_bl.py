@@ -108,16 +108,16 @@ def AT_bl(Ax,vol,angles, reset= True):
     if reset:
         vol*=0
         
-    for ai in prange(pa):
-        cosphi = cos(angles[ai])
-        sinphi = sin(angles[ai])
-        b = (0.5 * abs(cosphi - sinphi))
-        a = (0.5 * abs(cosphi + sinphi))
-        if b<a:
-            a,b=b,a
-        lmax = (1 / (a+b))
+    for xi in prange(nx):
+        for ai in range(pa):
+            cosphi = cos(angles[ai])
+            sinphi = sin(angles[ai])
+            b = (0.5 * abs(cosphi - sinphi))
+            a = (0.5 * abs(cosphi + sinphi))
+            if b<a:
+                a,b=b,a
+            lmax = (1 / (a+b))
 
-        for xi in range(nx):
             for yi in range(ny):
                 xp = (xi - xcent) * cosphi + (yi - ycent) * sinphi + pcent
                 iqx = round(xp)
@@ -152,16 +152,15 @@ def sAT_bl(Ax,vol,angles, reset= True):
     if reset:
         vol*=0
         
-    for ai in prange(pa):
-        cosphi = cos(angles[ai])
-        sinphi = sin(angles[ai])
-        b = (0.5 * abs(cosphi - sinphi))
-        a = (0.5 * abs(cosphi + sinphi))
-        if b<a:
-            a,b=b,a
-        lmax = (1 / (a+b))
-
-        for xi in range(nx):
+    for xi in prange(nx):
+        for ai in range(pa):
+            cosphi = cos(angles[ai])
+            sinphi = sin(angles[ai])
+            b = (0.5 * abs(cosphi - sinphi))
+            a = (0.5 * abs(cosphi + sinphi))
+            if b<a:
+                a,b=b,a
+            lmax = (1 / (a+b))
             for yi in range(ny):
                 xp = (xi - xcent) * cosphi + (yi - ycent) * sinphi + pcent
                 iqx = round(xp)
