@@ -200,10 +200,10 @@ def sAT_psf(Ax,vol,psf, angles, reset = True):
 
                 # make the weighted kernel
                 w_kernel*=0
-                # flip kernel in x
-                w_kernel[:-2,:]+=wx0*psf[ki,:,::-1]
-                w_kernel[1:-1,:]+=wx1*psf[ki,:,::-1]
-                w_kernel[2:,:]+=wx2*psf[ki,:,::-1]
+                # no flip kernel in x (kT)
+                w_kernel[:-2,:]+=wx0*psf[ki,:,:]
+                w_kernel[1:-1,:]+=wx1*psf[ki,:,:]
+                w_kernel[2:,:]+=wx2*psf[ki,:,:]
 
                 kw_x,kw_y = w_kernel.shape
                 kr_x, kr_y = (kw_x - 1) // 2, (kw_y - 1) // 2
@@ -214,17 +214,17 @@ def sAT_psf(Ax,vol,psf, angles, reset = True):
                         kernel = w_kernel[kx,:]
                         for zi in range(kr_y,nh-kr_y): 
                             for ki in range(kw_y):
-                                vol[xi,yi,zi-kr_y+ki]+= Ax[ai, ind0, zi]  *kernel[ki]
+                                vol[xi,yi,zi]+= Ax[ai, ind0, zi-kr_y+ki]  *kernel[ki]
                     # extend top and bottom with constant boundary condition
                     # by clamping the value index
                         for zi in range(0,kr_y): 
                             for ki in range(kw_y):
                                 vzi = max(0,zi-kr_y+ki)
-                                vol[xi,yi,vzi]+=Ax[ai, ind0, zi] *kernel[ki]
+                                vol[xi,yi,zi]+=Ax[ai, ind0, vzi] *kernel[ki]
                         for zi in range(nh-kr_y,nh): 
                             for ki in range(kw_y):
                                 vzi = min(nh-1,zi-kr_y+ki)
-                                vol[xi,yi,vzi]+=Ax[ai, ind0, zi]*kernel[ki]
+                                vol[xi,yi,zi]+=Ax[ai, ind0, vzi]*kernel[ki]
 
 
 
